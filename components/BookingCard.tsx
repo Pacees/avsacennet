@@ -199,16 +199,31 @@ export function BookingCard({ id, blockedDates = [] }: BookingCardProps) {
         checkOut: payload.checkOut,
         phone: payload.phone,
         adults: payload.adults,
-        children: payload.children
+        children: payload.children,
+        totalPrice,
+        deposit: data.deposit
       }),
     })
 
       showAlert(
         "success",
         "Talebiniz Alındı!",
-        `Sayın ${fullName.split(" ").map(kelime => kelime.charAt(0).toUpperCase() + kelime.slice(1)).join(" ")}, rezervasyon talebiniz başarıyla oluşturuldu.
-        Rezervasyonunuzu hemen onaylayıp yerinizi ayırtmak için ${email} e-posta kutunuzu kontrol ediniz.
-        Toplam Tutar: ₺${totalPrice.toLocaleString("tr-TR")}`
+        `Sayın ${fullName.split(" ").map(kelime => kelime.charAt(0).toUpperCase() + kelime.slice(1)).join(" ")},
+        Rezervasyonunuzu hemen onaylayıp yerinizi ayırtmak için hesaplanan kapora tutarını EFT/Havale yapıp,
+        dekontu ve isminizi WhatsApp üzerinden iletişim numaramızla paylaşınız.
+
+        Toplam Tutar: ₺${totalPrice.toLocaleString("tr-TR")}
+
+        Kapora Tutarı (EFT/Havale Yapınız):
+        ₺${data.deposit.toLocaleString("tr-TR") || "Hesaplanamadı. Lütfen 0 (555) 635 41 55 ile irtibata geçiniz."}
+        TR88 0001 5001 5800 7328 3126 62
+        Selma Altun - Vakıfbank
+
+        Kapora sonrası bakiye: ₺${data.deposit? (totalPrice - data.deposit).toLocaleString("tr-TR") : "-"} (Girişte tahsil edilir)
+
+        Rezervasyon detaylarını ${email} e-posta adresinize gönderdik.
+        İyi tatiller!
+        `
       )
       
       // Formu Temizle
@@ -382,7 +397,7 @@ export function BookingCard({ id, blockedDates = [] }: BookingCardProps) {
                 </div>
                 <div className="flex items-center justify-between text-xs text-gray-500">
                   <span>Temizlik Ücreti</span>
-                  <span>₺0 (Dahil)</span>
+                  <span>₺0 (Ücrete Dahil)</span>
                 </div>
                 <div className="flex items-center justify-between border-t border-orange-100 pt-2 text-lg font-extrabold text-orange-600">
                   <span>Toplam Tutar</span>

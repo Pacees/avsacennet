@@ -80,7 +80,7 @@ export function HomeGallery() {
               className="w-full flex items-center justify-center gap-2 bg-orange-500 active:bg-orange-600 text-white py-2.5 px-4 rounded-xl font-semibold text-sm shadow-sm transition-all active:scale-[0.98]"
             >
               <Calendar className="h-4 w-4" />
-              <span>Hemen Rezerve Et</span>
+              <span>Yerinizi Ayırtın</span>
             </button>
           </div>
         </div>

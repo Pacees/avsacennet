@@ -45,7 +45,7 @@ export function AlertModal({
   }[type]
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm animate-in fade-in duration-200">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm animate-in fade-in duration-200 whitespace-pre-line">
       
       {/* Modal Kartı */}
       <div 
@@ -68,7 +68,7 @@ export function AlertModal({
 
           <h3 className="text-xl font-bold text-gray-900">{title}</h3>
           
-          <p className="text-sm text-gray-600 leading-relaxed">
+          <p className="text-sm text-black leading-relaxed">
             {message}
           </p>
 

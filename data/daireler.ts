@@ -78,53 +78,36 @@ export const PROPERTIES: Property[] = [
     title: "Bahçeli 1+1 Daire",
     location: "Avşa Adası, Merkez",
     price: 3500,
-    coverImage: "/gallery/giris-alp/0.jpg",
+    coverImage: "/gallery/giris-sag/9.jpg",
     images: [
        {
-        src: "/gallery/giris-alp/0.jpg",
+        src: "/gallery/giris-sag/9.jpg",
         alt: "Bahçe"
        },
        {
-        src: "/gallery/giris-alp/9.jpg",
+        src: "/gallery/giris-sag/3.jpg",
         alt: "Giriş"
        },
        {
-        src: "/gallery/giris-alp/7.jpg",
+        src: "/gallery/giris-sag/0.jpg",
         alt: "Mutfak"
        },
        {
-        src: "/gallery/giris-alp/1.jpg",
-        alt: "Mutfak Bölümü"
+        src: "/gallery/giris-sag/8.jpg",
+        alt: "Geniş - Ferah Salon"
        },
        {
-        src: "/gallery/giris-alp/4.jpg",
-        alt: "Salon"
+        src: "/gallery/giris-sag/5.jpg",
+        alt: "Geniş - Ferah Salon"
        },
        {
-        src: "/gallery/giris-alp/5.jpg",
-        alt: "Salon"
-       },
-       {
-        src: "/gallery/giris-alp/6.jpg",
-        alt: "Salon"
-       },
-       {
-        src: "/gallery/giris-alp/12.jpg",
+        src: "/gallery/giris-sag/2.jpg",
         alt: "Yatak Odası"
        },
-
-      {
-        src: "/gallery/giris-alp/2.jpg",
-        alt: "Lavabo ve Banyo"
-       },
        {
-        src: "/gallery/giris-alp/3.jpg",
-        alt: "Lavabo ve Banyo"
-       },
-       {
-        src: "/gallery/giris-alp/13.jpg",
-        alt: "Bahçe"
-       },
+        src: "/gallery/giris-sag/7.jpg",
+        alt: "Lavabo - Banyo"
+       }
     ],
     specs: { guests: 4, bedrooms: 1, beds: 3, baths: 1 },
 description: "Avşa Adası merkezde günlük kiralık daire. Adanın gürültüsünden uzakta, eğlenceye yakın. Tüm mutfak araç gereçleri, tv ve fiber internet mevcuttur. Dairede sıcak ve soğuk su problemi yoktur. Marketler 2-3 dakika, denize 4-5 dakika yürüme mesafede."  },
@@ -133,7 +116,7 @@ description: "Avşa Adası merkezde günlük kiralık daire. Adanın gürültüs
     id: "ust-sag",
     title: "Geniş & Ferah 1+1 Daire",
     location: "Avşa Adası, Merkez",
-    price: 3000,
+    price: 3500,
     coverImage: "/gallery/ust-sag/0.jpg",
     images: [
        {

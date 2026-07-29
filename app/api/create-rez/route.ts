@@ -123,7 +123,9 @@ export async function POST(request: Request) {
         console.log(propertyId);
 
         return NextResponse.json(
-      { message: 'Rezervasyon talebiniz alındı!'},
+      { message: 'Rezervasyon talebiniz alındı!',
+        deposit: roundedDeposit
+      },
       { status: 201 }
     )
     } catch(error){
