@@ -21,7 +21,7 @@ export const PROPERTIES: Property[] = [
     id: "giris-alp",
     title: "Bahçeli 1+1 Müstakil Daire",
     location: "Avşa Adası, Merkez",
-    price: 2500,
+    price: 3500,
     coverImage: "/gallery/giris-alp/0.jpg",
     images: [
        {
@@ -77,7 +77,7 @@ export const PROPERTIES: Property[] = [
     id: "giris-sag",
     title: "Bahçeli 1+1 Daire",
     location: "Avşa Adası, Merkez",
-    price: 2500,
+    price: 3500,
     coverImage: "/gallery/giris-alp/0.jpg",
     images: [
        {
@@ -133,7 +133,7 @@ description: "Avşa Adası merkezde günlük kiralık daire. Adanın gürültüs
     id: "ust-sag",
     title: "Geniş & Ferah 1+1 Daire",
     location: "Avşa Adası, Merkez",
-    price: 2500,
+    price: 3000,
     coverImage: "/gallery/ust-sag/0.jpg",
     images: [
        {
@@ -176,7 +176,7 @@ description: "Avşa Adası merkezde günlük kiralık daire. Adanın gürültüs
     id: "ust-sol",
     title: "Balkonlu Geniş & Ferah 1+1 Daire ",
     location: "Avşa Adası, Merkez",
-    price: 2500,
+    price: 3500,
     coverImage: "/gallery/ust-sol/9.jpg",
     images: [
        {
@@ -235,7 +235,7 @@ description: "Avşa Adası merkezde günlük kiralık daire. Adanın gürültüs
     id: "daire-5",
     title: "1+1 Daire",
     location: "Avşa Adası, Merkez",
-    price: 2500,
+    price: 3000,
     coverImage: "/gallery/daire-5/0.jpg",
     images: [
        {
