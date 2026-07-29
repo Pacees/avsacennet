@@ -1,3 +1,6 @@
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 import { notFound } from "next/navigation"
 import Link from "next/link"
 import { PROPERTIES } from "@/data/daireler"
@@ -10,7 +13,6 @@ interface PageProps {
   params: Promise<{ id: string }>
 }
 
-export const dynamic = 'force-dynamic';
 export default async function PropertyDetailPage({ params }: PageProps) {
   const { id } = await params
   const property = PROPERTIES.find((p) => p.id === id)
