@@ -26,7 +26,7 @@ export default async function PropertyDetailPage({ params }: PageProps) {
   try {
     // Next.js server side fetch için absolute URL veya doğrudan Supabase sorgusu kullanılabilir
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"}/api/blocked-dates?propertyId=${id}`,
+      `${process.env.NEXT_PUBLIC_SITE_URL! || "http://localhost:3000"}/api/blocked-dates?propertyId=${id}`,
       { cache: "no-store" } // Her zaman taze veri çekmesi için
     )
     if (res.ok) {
