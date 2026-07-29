@@ -8,6 +8,7 @@ import { PROPERTIES } from "@/data/daireler"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Star, MapPin, Users, Bed, Calendar as CalendarIcon, Search, X } from "lucide-react"
+import { HomeGallery } from "@/components/HomeGallery"
 
 export default function Home() {
   const supabase = React.useMemo(() => {
@@ -103,14 +104,18 @@ export default function Home() {
   }
 
   return (
+
+
     <main className="min-h-screen bg-orange-50/30 p-6 md:p-12">
       <div className="max-w-6xl mx-auto space-y-8">
+
+                <HomeGallery />
         
         {/* Header */}
-        <div className="text-center space-y-2">
+        <div className="text-center space-y-2 scroll-mt-34" id="rezervasyon-alani">
           <Badge className="bg-orange-500 text-white hover:bg-orange-600">Avşa Kiralık Daireler</Badge>
           <h1 className="text-3xl md:text-5xl font-extrabold text-gray-900">
-            Avşa Cennet'ten yerinizi seçin
+            Avşa Cennet'ten Tatil Evinizi Seçin
           </h1>
           <p className="text-gray-600 max-w-xl mx-auto text-sm md:text-base">
             Konforlu, temiz ve denize yakın dairelerimiz arasından seçiminizi yapın, anında rezervasyon talebi gönderin.
@@ -176,7 +181,7 @@ export default function Home() {
           {/* Filtrelenmiş Bilgi Notu */}
           {isFiltered && (
             <div className="mt-3 pt-3 border-t border-orange-50 flex items-center justify-between text-xs text-orange-800">
-              <span>Seçilen tarihlerde <strong>{filteredProperties.length}</strong> adet boş daire bulundu.</span>
+              <span>Seçilen tarihlerde bulunan <strong>{filteredProperties.length}</strong> adet boş daire aşağıda listelenmiştir.</span>
               <span className="font-medium bg-orange-100 px-2 py-0.5 rounded text-[11px]">{checkIn} → {checkOut}</span>
             </div>
           )}

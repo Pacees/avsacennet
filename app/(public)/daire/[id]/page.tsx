@@ -1,6 +1,3 @@
-export const dynamic = 'force-dynamic';
-export const revalidate = 0;
-
 import { notFound } from "next/navigation"
 import Link from "next/link"
 import { PROPERTIES } from "@/data/daireler"
@@ -8,6 +5,10 @@ import { BookingCard } from "@/components/BookingCard"
 import { PhotoGallery } from "@/components/PhotoGallery"
 import { Button } from "@/components/ui/button"
 import { ArrowLeft, MapPin, Star, Users, Bed, Bath } from "lucide-react"
+import { ScrollToBookingButton } from "@/components/ScrollToBookingButton"
+
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
 interface PageProps {
   params: Promise<{ id: string }>
@@ -24,10 +25,9 @@ export default async function PropertyDetailPage({ params }: PageProps) {
   // 1. Kapalı tarihleri doğrudan Sunucu Tarafında (Server Component) çekiyoruz
   let blockedDates = []
   try {
-    // Next.js server side fetch için absolute URL veya doğrudan Supabase sorgusu kullanılabilir
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_SITE_URL! || "http://localhost:3000"}/api/blocked-dates?propertyId=${id}`,
-      { cache: "no-store" } // Her zaman taze veri çekmesi için
+      `${process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"}/api/blocked-dates?propertyId=${id}`,
+      { cache: "no-store" }
     )
     if (res.ok) {
       const data = await res.json()
@@ -35,9 +35,7 @@ export default async function PropertyDetailPage({ params }: PageProps) {
     }
   } catch (error) {
     console.error("Kapalı tarihler çekilirken hata oluştu:", error)
-  };
-
-  console.log(blockedDates);
+  }
 
   return (
     <main className="min-h-screen bg-orange-50/20 p-4 md:p-10">
@@ -61,6 +59,9 @@ export default async function PropertyDetailPage({ params }: PageProps) {
             </span>
           </div>
           <h1 className="text-2xl md:text-4xl font-extrabold text-gray-900">{property.title}</h1>
+          
+          {/* Mobilde Görünen Hızlı Kaydırma Butonu */}
+          <ScrollToBookingButton />
         </div>
 
         {/* İçerik Düzeni: Sol Galeri & Detay, Sağ Rezervasyon Kartı */}
@@ -96,8 +97,8 @@ export default async function PropertyDetailPage({ params }: PageProps) {
             </div>
           </div>
 
-          {/* Sağ Kolon: Rezervasyon Yapma Kartı */}
-          <div className="lg:sticky lg:top-8">
+          {/* Sağ Kolon: Rezervasyon Yapma Kartı (ID Güncellendi: rezervasyon-formu) */}
+          <div className="lg:sticky lg:top-8 scroll-mt-24" id="rezervasyon-formu">
             <BookingCard id={id} blockedDates={blockedDates} />
           </div>
 
