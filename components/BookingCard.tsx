@@ -209,8 +209,8 @@ export function BookingCard({ id, blockedDates = [] }: BookingCardProps) {
         "success",
         "Talebiniz Alındı!",
         `Sayın ${fullName.split(" ").map(kelime => kelime.charAt(0).toUpperCase() + kelime.slice(1)).join(" ")},
-        Rezervasyonunuzu hemen onaylayıp yerinizi ayırtmak için hesaplanan kapora tutarını EFT/Havale yapıp,
-        dekontu ve isminizi WhatsApp üzerinden iletişim numaramızla paylaşınız.
+        Rezervasyonunuzu hemen onaylayıp yerinizi ayırtmak için kapora tutarını EFT/Havale yapıp,
+        dekont ve rezervasyonu yapan kişinin isim bilgisini WhatsApp üzerinden iletişim numaramızla paylaşınız.
 
         Toplam Tutar: ₺${totalPrice.toLocaleString("tr-TR")}
 
@@ -271,42 +271,44 @@ export function BookingCard({ id, blockedDates = [] }: BookingCardProps) {
             </div>
 
             {/* DATE PICKER */}
-            <div className="space-y-1.5">
-              <label className="text-xs font-semibold text-gray-700">Tarih Aralığı Seçin *</label>
-              <Popover>
-                <PopoverTrigger asChild>
-                  <Button
-                    variant="outline"
-                    className="h-11 w-full justify-start text-left border-orange-200 shadow-sm hover:border-orange-500 focus:ring-orange-500"
-                  >
-                    <CalendarIcon className="mr-2.5 h-5 w-5 text-orange-500" />
-                    {dateRange?.from ? (
-                      dateRange.to ? (
-                        <span className="font-medium text-gray-900">
-                          {format(dateRange.from, "dd MMM yyyy", { locale: tr })} — {format(dateRange.to, "dd MMM yyyy", { locale: tr })}
-                        </span>
-                      ) : (
-                        <span className="font-medium text-gray-900">
-                          {format(dateRange.from, "dd MMM yyyy", { locale: tr })} — Çıkış Tarihi Seçin
-                        </span>
-                      )
-                    ) : (
-                      <span className="text-gray-400">Giriş - Çıkış Tarihi Seçin</span>
-                    )}
-                  </Button>
-                </PopoverTrigger>
-                <PopoverContent className="w-auto p-0" align="start">
-                  <Calendar
-                    mode="range"
-                    selected={dateRange}
-                    onSelect={handleDateSelect}
-                    numberOfMonths={1}
-                    disabled={isDateBlocked}
-                    className="pointer-events-auto p-3"
-                  />
-                </PopoverContent>
-              </Popover>
-            </div>
+<div className="space-y-1.5">
+  <label className="text-xs font-semibold text-gray-700">Tarih Aralığı Seçin *</label>
+  <Popover>
+    <PopoverTrigger asChild>
+      <Button
+        variant="outline"
+        className="h-11 w-full justify-start text-left border-orange-200 shadow-sm hover:border-orange-500 focus:ring-orange-500"
+      >
+        <CalendarIcon className="mr-2.5 h-5 w-5 text-orange-500" />
+        {dateRange?.from ? (
+          dateRange.to ? (
+            <span className="font-medium text-gray-900">
+              {format(dateRange.from, "dd MMM yyyy", { locale: tr })} — {format(dateRange.to, "dd MMM yyyy", { locale: tr })}
+            </span>
+          ) : (
+            <span className="font-medium text-gray-900">
+              {format(dateRange.from, "dd MMM yyyy", { locale: tr })} — Çıkış Tarihi Seçin
+            </span>
+          )
+        ) : (
+          <span className="text-gray-400">Giriş - Çıkış Tarihi Seçin</span>
+        )}
+      </Button>
+    </PopoverTrigger>
+    <PopoverContent className="w-auto p-0" align="start">
+      <Calendar
+        mode="range"
+        selected={dateRange}
+        onSelect={handleDateSelect}
+        numberOfMonths={1}
+        disabled={isDateBlocked}
+        locale={tr}             
+        weekStartsOn={1}         
+        className="pointer-events-auto p-3"
+      />
+    </PopoverContent>
+  </Popover>
+</div>
 
             {/* GUEST COUNTS */}
             <div className="grid grid-cols-2 gap-3">
@@ -349,7 +351,7 @@ export function BookingCard({ id, blockedDates = [] }: BookingCardProps) {
               </label>
               <input
                 type="text"
-                placeholder="Ahmet Yılmaz"
+                placeholder="İsim Soyisim"
                 value={fullName}
                 onChange={(e) => setFullName(e.target.value)}
                 className="h-10 w-full rounded-md border border-orange-200 px-3 text-sm focus:border-orange-500 focus:outline-none"
@@ -377,7 +379,7 @@ export function BookingCard({ id, blockedDates = [] }: BookingCardProps) {
               </label>
               <input
                 type="email"
-                placeholder="ornek@email.com"
+                placeholder="E-posta adresiniz"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="h-10 w-full rounded-md border border-orange-200 px-3 text-sm focus:border-orange-500 focus:outline-none"

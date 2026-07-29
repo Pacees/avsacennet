@@ -62,7 +62,8 @@ export async function POST(request: Request) {
 
         //Kapora Hesaplama
         const calculatedDeposit = calculatedTotalPrice / 5;
-        const roundedDeposit = Math.round(calculatedDeposit / 50) * 50;
+        //const roundedDeposit = Math.round(calculatedDeposit / 50) * 50;
+        const roundedDeposit = 5000
 
 
             // DB'den tarih kontrolü

@@ -23,8 +23,8 @@ export async function POST(request: Request) {
         <div style="font-family: Arial, sans-serif; color: #333; max-width: 600px; margin: 0 auto; border: 1px solid #f0f0f0; border-radius: 12px; padding: 24px;">
           <h2 style="color: #f97316; text-align: center;">Rezervasyon Talebiniz Alındı!</h2>
           <p>Merhaba <strong>${upperCaseName || "Değerli Misafirimiz"}</strong>,</p>
-          <p>Avşa Cennet üzerinden yapmış olduğunuz konaklama talebi başarıyla tarafımıza ulaşmıştır. <br>Yerinizi ayırtmak için hesaplanan kapora tutarını EFT/Havale yapıp,
-        dekontu ve isminizi WhatsApp üzerinden <strong>+90 (555) 635 41 55</strong> iletişim numaramızla paylaşınız.</p>
+          <p>Avşa Cennet üzerinden yapmış olduğunuz konaklama talebi başarıyla tarafımıza ulaşmıştır. <br>Yerinizi ayırtmak için kapora tutarını EFT/Havale yapıp,
+        dekont ve rezervasyonu yapan kişinin isim bilgisini WhatsApp üzerinden <strong>+90 (555) 635 41 55</strong> iletişim numaramızla paylaşınız.</p>
           
           <div style="background-color: #fff7ed; border-left: 4px solid #f97316; padding: 16px; margin: 20px 0; border-radius: 4px;">
             <h4 style="margin: 0 0 8px 0; color: #9a3412;">Talep Detayları:</h4>

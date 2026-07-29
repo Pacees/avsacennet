@@ -152,7 +152,7 @@ description: "Avşa Adası merkezde günlük kiralık daire. Adanın gürültüs
         alt: "Lavabo & Banyo"
        }
     ],
-    specs: { guests: 4, bedrooms: 1, beds: 3, baths: 2 },
+    specs: { guests: 4, bedrooms: 1, beds: 3, baths: 1 },
 description: "Avşa Adası merkezde günlük kiralık daire. Adanın gürültüsünden uzakta, eğlenceye yakın. Tüm mutfak araç gereçleri, tv ve fiber internet mevcuttur. Dairede sıcak ve soğuk su problemi yoktur. Marketler 2-3 dakika, denize 4-5 dakika yürüme mesafede."  },
 
   {
@@ -250,7 +250,7 @@ description: "Avşa Adası merkezde günlük kiralık daire. Adanın gürültüs
         alt: "Lavabo & Banyo"
        },
     ],
-    specs: { guests: 4, bedrooms: 2, beds: 2, baths: 1 },
+    specs: { guests: 4, bedrooms: 1, beds: 3, baths: 1 },
 description: "Avşa Adası merkezde günlük kiralık daire. Adanın gürültüsünden uzakta, eğlenceye yakın. Tüm mutfak araç gereçleri, tv ve fiber internet mevcuttur. Dairede sıcak ve soğuk su problemi yoktur. Marketler 2-3 dakika, denize 4-5 dakika yürüme mesafede."  }
   /*{
     id: "daire-6",
