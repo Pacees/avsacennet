@@ -74,9 +74,9 @@ export default function LocationPage() {
             <p className="font-semibold text-gray-800">Yol Tarifi Al</p>
 
             <div className='flex items-center gap-10 justify-start'>
-                <div className='flex flex-col items-center gap-2'><a href={googleMapsDirectionsUrl}><img src="/google-maps.png" alt="" className='h-9' /></a> <p className='text-xs'>Google Maps</p> </div>
-                <div className='flex flex-col items-center gap-2'><a href={appleMapsDirectionUrl}><img src="/apple-maps.png" alt="" className='h-9' /></a> <p className='text-xs'>Apple Harita</p> </div>
-                <div className='flex flex-col items-center gap-2'><a href={yandexNaviDirectionUrl}><img src="/yandex-navi.png" alt="" className='h-9' /></a> <p className='text-xs'>Yandex Navi</p> </div>
+                <div className='flex flex-col items-center justify-center gap-2'><a href={googleMapsDirectionsUrl}><img src="/google-maps.png" alt="" className='h-9' /></a> <p className='text-xs text-center'>Google Maps</p> </div>
+                <div className='flex flex-col items-center gap-2'><a href={appleMapsDirectionUrl}><img src="/apple-maps.png" alt="" className='h-9' /></a> <p className='text-xs text-center'>Apple Harita</p> </div>
+                <div className='flex flex-col items-center gap-2'><a href={yandexNaviDirectionUrl}><img src="/yandex-navi.png" alt="" className='h-9' /></a> <p className='text-xs text-center'>Yandex Navi</p> </div>
             </div>
 
         </div>
