@@ -58,8 +58,8 @@ export default function Header() {
     <Link href="/" className="hover:text-orange-500 transition py-1 border-b-2 border-transparent hover:border-orange-500">
       Ana Sayfa
     </Link>
-    <Link href="/daireler" className="hover:text-orange-500 transition py-1 border-b-2 border-transparent hover:border-orange-500">
-      Dairelerimiz
+    <Link href="/konum" className="hover:text-orange-500 transition py-1 border-b-2 border-transparent hover:border-orange-500">
+      Konum
     </Link>
     <Link href="/hakkimizda" className="hover:text-orange-500 transition py-1 border-b-2 border-transparent hover:border-orange-500">
       Hakkımızda
