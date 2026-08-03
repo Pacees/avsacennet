@@ -283,11 +283,11 @@ export function BookingCard({ id, blockedDates = [] }: BookingCardProps) {
         {/* CARD HEADER */}
         <CardHeader className="border-b border-orange-100 bg-orange-50/30 p-6">
           <div className="mb-1 flex items-center justify-between">
-            <Badge className="bg-orange-500 text-white hover:bg-orange-600">
+            <Badge className="bg-primary text-white hover:bg-chart-4">
               Anında Onaylı
             </Badge>
             <div>
-              <span className="text-3xl font-extrabold text-orange-600">
+              <span className="text-3xl font-extrabold text-primary">
                 ₺{CONFIG.PRICE_PER_NIGHT.toLocaleString("tr-TR")}
               </span>
               <span className="text-sm font-normal text-gray-500"> / gece</span>
@@ -302,9 +302,9 @@ export function BookingCard({ id, blockedDates = [] }: BookingCardProps) {
             
             {/* AMENITIES */}
             <div className="flex items-center justify-between border-y border-orange-100/70 py-2.5 text-sm text-gray-600">
-              <span className="flex items-center gap-1"><Wifi className="h-4 w-4 text-orange-500" /> Wi-Fi</span>
-              <span className="flex items-center gap-1"><Tv className="h-4 w-4 text-orange-500" /> Smart TV</span>
-              <span className="flex items-center gap-1"><Coffee className="h-4 w-4 text-orange-500" /> Mutfak</span>
+              <span className="flex items-center gap-1"><Wifi className="h-4 w-4 text-primary" /> Wi-Fi</span>
+              <span className="flex items-center gap-1"><Tv className="h-4 w-4 text-primary" /> Smart TV</span>
+              <span className="flex items-center gap-1"><Coffee className="h-4 w-4 text-primary" /> Mutfak</span>
             </div>
 
             {/* DATE PICKER */}
@@ -314,9 +314,9 @@ export function BookingCard({ id, blockedDates = [] }: BookingCardProps) {
                 <PopoverTrigger asChild>
                   <Button
                     variant="outline"
-                    className="h-11 w-full justify-start text-left border-orange-200 shadow-sm hover:border-orange-500 focus:ring-orange-500"
+                    className="h-11 w-full justify-start text-left border-orange-200 shadow-sm hover:border-primary focus:ring-orange-500"
                   >
-                    <CalendarIcon className="mr-2.5 h-5 w-5 text-orange-500" />
+                    <CalendarIcon className="mr-2.5 h-5 w-5 text-primary" />
                     {dateRange?.from ? (
                       dateRange.to ? (
                         <span className="font-medium text-gray-900">
@@ -367,12 +367,12 @@ export function BookingCard({ id, blockedDates = [] }: BookingCardProps) {
 
               <div className="space-y-1.5">
                 <label className="flex items-center gap-1 text-xs font-semibold text-gray-700">
-                  <Baby className="h-3.5 w-3.5 text-orange-500" /> Çocuk
+                  <Baby className="h-3.5 w-3.5 text-primary" /> Çocuk
                 </label>
                 <select
                   value={children}
                   onChange={(e) => setChildren(Number(e.target.value))}
-                  className="h-10 w-full rounded-md border border-orange-200 bg-white px-3 text-sm focus:border-orange-500 focus:outline-none"
+                  className="h-10 w-full rounded-md border border-chart-2 bg-white px-3 text-sm focus:border-primary focus:outline-none"
                 >
                   {[0, 1, 2, 3, 4].map((num) => (
                     <option key={num} value={num}>{num} Çocuk</option>
@@ -384,42 +384,42 @@ export function BookingCard({ id, blockedDates = [] }: BookingCardProps) {
             {/* CONTACT INPUTS */}
             <div className="space-y-1.5">
               <label className="flex items-center gap-1 text-xs font-semibold text-gray-700">
-                <UserCheck className="h-3.5 w-3.5 text-orange-500" /> Ad Soyad *
+                <UserCheck className="h-3.5 w-3.5 text-primary" /> Ad Soyad *
               </label>
               <input
                 type="text"
                 placeholder="İsim Soyisim"
                 value={fullName}
                 onChange={(e) => setFullName(e.target.value)}
-                className="h-10 w-full rounded-md border border-orange-200 px-3 text-sm focus:border-orange-500 focus:outline-none"
+                className="h-10 w-full rounded-md border border-chart-2 px-3 text-sm focus:border-primary focus:outline-none"
                 required
               />
             </div>
 
             <div className="space-y-1.5">
               <label className="flex items-center gap-1 text-xs font-semibold text-gray-700">
-                <Phone className="h-3.5 w-3.5 text-orange-500" /> Telefon *
+                <Phone className="h-3.5 w-3.5 text-primary" /> Telefon *
               </label>
               <input
                 type="tel"
                 placeholder="05XX XXX XX XX"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
-                className="h-10 w-full rounded-md border border-orange-200 px-3 text-sm focus:border-orange-500 focus:outline-none"
+                className="h-10 w-full rounded-md border border-chart-2 px-3 text-sm focus:border-primary focus:outline-none"
                 required
               />
             </div>
 
             <div className="space-y-1.5">
               <label className="flex items-center gap-1 text-xs font-semibold text-gray-700">
-                <Mail className="h-3.5 w-3.5 text-orange-500" /> E-posta *
+                <Mail className="h-3.5 w-3.5 text-primary" /> E-posta *
               </label>
               <input
                 type="email"
                 placeholder="E-posta adresiniz"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="h-10 w-full rounded-md border border-orange-200 px-3 text-sm focus:border-orange-500 focus:outline-none"
+                className="h-10 w-full rounded-md border border-orange-200 px-3 text-sm focus:border-primary focus:outline-none"
                 required
               />
             </div>
@@ -438,7 +438,7 @@ export function BookingCard({ id, blockedDates = [] }: BookingCardProps) {
                   <span>Temizlik Ücreti</span>
                   <span>₺0 (Ücrete Dahil)</span>
                 </div>
-                <div className="flex items-center justify-between border-t border-orange-100 pt-2 text-lg font-extrabold text-orange-600">
+                <div className="flex items-center justify-between border-t border-orange-100 pt-2 text-lg font-extrabold text-chart-3">
                   <span>Toplam Tutar</span>
                   <span>₺{totalPrice.toLocaleString("tr-TR")}</span>
                 </div>
@@ -448,7 +448,7 @@ export function BookingCard({ id, blockedDates = [] }: BookingCardProps) {
             {/* CHECK-IN / CHECK-OUT INFO */}
             <div className="flex items-center justify-between rounded-lg border border-gray-200/80 bg-gray-50 p-3 text-xs text-gray-600">
               <div className="flex items-center gap-1.5">
-                <Clock className="h-4 w-4 shrink-0 text-orange-500" />
+                <Clock className="h-4 w-4 shrink-0 text-primary" />
                 <span>Giriş: <strong className="text-gray-900">{CONFIG.CHECK_IN_TIME}</strong> sonrası</span>
               </div>
               <div className="h-3 w-px bg-gray-300" />
@@ -464,7 +464,7 @@ export function BookingCard({ id, blockedDates = [] }: BookingCardProps) {
             <Button
               type="submit"
               disabled={loading}
-              className="h-14 w-full rounded-xl bg-orange-500 text-lg font-bold text-white shadow-lg shadow-orange-500/20 transition-all hover:bg-orange-600 disabled:opacity-50"
+              className="h-14 w-full rounded-xl bg-primary text-lg font-bold text-white shadow-lg shadow-orange-500/20 transition-all hover:bg-chart-4 disabled:opacity-50"
             >
               <ShieldCheck className="mr-2 h-6 w-6" /> 
               {loading ? "Gönderiliyor..." : "Rezervasyon Talebi Gönder"}

@@ -139,7 +139,7 @@ export default function Home() {
         
         {/* Header */}
         <div className="text-center space-y-2 scroll-mt-34" id="rezervasyon-alani">
-          <Badge className="bg-orange-500 text-white hover:bg-orange-600">Avşa Kiralık Daireler</Badge>
+          <Badge className="bg-primary text-white hover:bg-chart-4">Avşa Kiralık Daireler</Badge>
           <h1 className="text-3xl md:text-5xl font-extrabold text-gray-900">
             Avşa Cennet'ten Tatil Evinizi Seçin
           </h1>
@@ -183,7 +183,7 @@ export default function Home() {
               <button
                 type="submit"
                 disabled={loading || !checkIn || !checkOut}
-                className="flex-1 sm:flex-initial flex items-center justify-center gap-1.5 bg-orange-500 hover:bg-orange-600 disabled:opacity-50 text-white font-semibold text-xs px-4 py-2.5 rounded-xl transition cursor-pointer whitespace-nowrap shadow-sm shadow-orange-200"
+                className="flex-1 sm:flex-initial flex items-center justify-center gap-1.5 bg-primary hover:bg-chart-4 disabled:opacity-50 text-white font-semibold text-xs px-4 py-2.5 rounded-xl transition cursor-pointer whitespace-nowrap shadow-sm shadow-orange-200"
               >
                 <Search className="w-3.5 h-3.5" />
                 <span>{loading ? "Sorgulanıyor..." : "Müsait Daireler"}</span>  
@@ -206,7 +206,7 @@ export default function Home() {
 
           {/* Filtrelenmiş Bilgi Notu */}
           {isFiltered && (
-            <div className="mt-3 pt-3 border-t border-orange-50 flex items-center justify-between text-xs text-orange-800">
+            <div className="mt-3 pt-3 border-t border-orange-50 flex items-center justify-between text-xs text-chart-4">
               <span>Seçilen tarihlerde bulunan <strong>{filteredProperties.length}</strong> adet boş daire aşağıda listelenmiştir.</span>
               <span className="font-medium bg-orange-100 px-2 py-0.5 rounded text-[11px]">{checkIn} → {checkOut}</span>
             </div>
@@ -241,28 +241,28 @@ export default function Home() {
                         className="object-cover group-hover:scale-105 transition-transform duration-500"
                       />
                       <div className="absolute top-3 right-3 bg-white/90 backdrop-blur-md px-2.5 py-1 rounded-full text-xs font-semibold text-gray-800 flex items-center gap-1 shadow">
-                        <Star className="w-3.5 h-3.5 fill-orange-500 text-orange-500" />
+                        <Star className="w-3.5 h-3.5 fill-primary text-primary" />
                         {property.rating}
                       </div>
                     </div>
 
                     {/* İçerik */}
                     <CardContent className="p-5 space-y-3">
-                      <div className="flex items-center text-xs text-orange-600 font-medium gap-1">
+                      <div className="flex items-center text-xs text-chart-3 font-medium gap-1">
                         <MapPin className="w-3.5 h-3.5" />
                         {property.location}
                       </div>
-                      <h3 className="font-bold text-lg text-gray-900 group-hover:text-orange-600 transition-colors line-clamp-1">
+                      <h3 className="font-bold text-lg text-gray-900 group-hover:text-chart-4 transition-colors line-clamp-1">
                         {property.title}
                       </h3>
                       
                       {/* Özellik Rozetleri */}
                       <div className="flex items-center gap-4 text-xs text-gray-500 pt-2 border-t border-gray-100">
                         <span className="flex items-center gap-1">
-                          <Users className="w-3.5 h-3.5 text-orange-500" /> {property.specs.guests} Kişi
+                          <Users className="w-3.5 h-3.5 text-primary" /> {property.specs.guests} Kişi
                         </span>
                         <span className="flex items-center gap-1">
-                          <Bed className="w-3.5 h-3.5 text-orange-500" /> {property.specs.bedrooms} Odalı
+                          <Bed className="w-3.5 h-3.5 text-primary" /> {property.specs.bedrooms} Odalı
                         </span>
                       </div>
                     </CardContent>
@@ -272,7 +272,7 @@ export default function Home() {
                   <div className="px-5 pb-5 pt-0 flex justify-between items-center border-t border-gray-50 mt-2">
                     <span className="text-xs text-gray-400">Gecelik Fiyat</span>
                     <div className="text-right">
-                      <span className="text-xl font-bold text-orange-600">₺{property.price.toLocaleString("tr-TR")}</span>
+                      <span className="text-xl font-bold text-primary">₺{property.price.toLocaleString("tr-TR")}</span>
                       <span className="text-xs text-gray-500"> / gece</span>
                     </div>
                   </div>

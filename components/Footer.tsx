@@ -67,15 +67,15 @@ Bir ismi Avşa, diğer ismi Türkeli, halk arasında ise Şarap Adası olarak ü
           <h4 className="text-white font-semibold text-sm tracking-wide">İletişim</h4>
           <ul className="space-y-2.5 text-xs">
             <li className="flex items-start gap-2">
-              <MapPin className="h-4 w-4 text-orange-500 shrink-0 mt-0.5" />
+              <MapPin className="h-4 w-4 text-primary shrink-0 mt-0.5" />
               <span>Deniz Mahallesi, 5012 Sk. No:1 Avşa Adası / Marmara / Balıkesir</span>
             </li>
             <li className="flex items-center gap-2">
-              <Phone className="h-4 w-4 text-orange-500 shrink-0" />
+              <Phone className="h-4 w-4 text-primary shrink-0" />
               <a href="tel:+905556354155" className="hover:text-white transition">+90 (555) 635 41 55</a>
             </li>
             <li className="flex items-center gap-2">
-              <Mail className="h-4 w-4 text-orange-500 shrink-0" />
+              <Mail className="h-4 w-4 text-primary shrink-0" />
               <a href="mailto:avsacennet@gmail.com" className="hover:text-white transition">avsacennet@gmail.com</a>
             </li>
           </ul>

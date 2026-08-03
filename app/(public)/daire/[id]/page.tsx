@@ -51,11 +51,11 @@ export default async function PropertyDetailPage({ params }: PageProps) {
         {/* Başlık & Konum */}
         <div className="space-y-2">
           <div className="flex items-center gap-2">
-            <span className="flex items-center text-xs font-semibold text-orange-600 bg-orange-100 px-2.5 py-1 rounded-full">
-              <Star className="w-3 h-3 fill-orange-500 mr-1" /> {property.rating}
+            <span className="flex items-center text-xs font-semibold text-chart-4 bg-orange-100 px-2.5 py-1 rounded-full">
+              <Star className="w-3 h-3 fill-primary mr-1" /> {property.rating}
             </span>
             <span className="text-xs text-gray-500 flex items-center gap-1">
-              <MapPin className="w-3.5 h-3.5 text-orange-500" /> {property.location}
+              <MapPin className="w-3.5 h-3.5 text-primary" /> {property.location}
             </span>
           </div>
           <h1 className="text-2xl md:text-4xl font-extrabold text-gray-900">{property.title}</h1>
@@ -76,17 +76,17 @@ export default async function PropertyDetailPage({ params }: PageProps) {
               <h2 className="text-lg font-bold text-gray-900">Daire Özellikleri</h2>
               <div className="grid grid-cols-3 gap-4 text-center py-2 border-y border-gray-100">
                 <div className="space-y-1">
-                  <Users className="w-5 h-5 mx-auto text-orange-500" />
+                  <Users className="w-5 h-5 mx-auto text-primary" />
                   <p className="text-xs text-gray-500">Kapasite</p>
                   <p className="text-sm font-semibold">{property.specs.guests} Misafir</p>
                 </div>
                 <div className="space-y-1">
-                  <Bed className="w-5 h-5 mx-auto text-orange-500" />
+                  <Bed className="w-5 h-5 mx-auto text-primary" />
                   <p className="text-xs text-gray-500">Yatak Odası</p>
                   <p className="text-sm font-semibold">{property.specs.bedrooms} Oda / {property.specs.beds} Yatak</p>
                 </div>
                 <div className="space-y-1">
-                  <Bath className="w-5 h-5 mx-auto text-orange-500" />
+                  <Bath className="w-5 h-5 mx-auto text-primary" />
                   <p className="text-xs text-gray-500">Banyo</p>
                   <p className="text-sm font-semibold">{property.specs.baths} Banyo</p>
                 </div>

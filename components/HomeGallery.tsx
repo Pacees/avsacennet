@@ -63,7 +63,7 @@ export function HomeGallery() {
         
         {/* Başlık Alanı */}
         <div className="text-center max-w-2xl mx-auto mb-6 md:mb-10 space-y-1.5">
-          <span className="text-orange-600 font-semibold text-xs uppercase tracking-wider bg-orange-100 px-3 py-1 rounded-full inline-block">
+          <span className="text-chart-4 font-semibold text-xs uppercase tracking-wider bg-orange-100 px-3 py-1 rounded-full inline-block">
             Avşa'da Tatil
           </span>
           <h2 className="text-2xl md:text-4xl font-extrabold text-gray-900">
@@ -77,7 +77,7 @@ export function HomeGallery() {
           <div className="block md:hidden pt-3">
             <button
               onClick={scrollToReservation}
-              className="w-full flex items-center justify-center gap-2 bg-orange-500 active:bg-orange-600 text-white py-2.5 px-4 rounded-xl font-semibold text-sm shadow-sm transition-all active:scale-[0.98]"
+              className="w-full flex items-center justify-center gap-2 bg-primary active:bg-chart-4 text-white py-2.5 px-4 rounded-xl font-semibold text-sm shadow-sm transition-all active:scale-[0.98]"
             >
               <Calendar className="h-4 w-4" />
               <span>Yerinizi Ayırtın</span>
@@ -86,7 +86,7 @@ export function HomeGallery() {
         </div>
 
         {/* Mobilde 2 Kolonlu Kompakt Grid / Masaüstünde Bento Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4 h-auto md:h-[500px]">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4 h-auto md:h-125">
           {GALLERY_IMAGES.map((img, index) => {
             const isFeatured = index === 0;
 
@@ -94,7 +94,7 @@ export function HomeGallery() {
               <div
                 key={index}
                 onClick={() => openLightbox(index)}
-                className={`relative group overflow-hidden rounded-xl md:rounded-2xl cursor-pointer shadow-sm hover:shadow-md transition-all duration-300 w-full ${
+                className={`relative group overflow-hidden rounded-xl md:rounded-2xl cursor-pointer shadow-sm hover:shadow-md transition-all duration-300 w-full mr-100 ${
                   isFeatured 
                     ? 'col-span-2 row-span-1 md:row-span-2 aspect-[16/9] md:aspect-auto md:h-full' 
                     : 'col-span-1 aspect-square md:aspect-auto md:h-full'
