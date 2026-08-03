@@ -7,7 +7,6 @@ import {
   Calendar as CalendarIcon,
   Wifi,
   Tv,
-  Car,
   Coffee,
   ShieldCheck,
   User,
@@ -111,16 +110,44 @@ export function BookingCard({ id, blockedDates = [] }: BookingCardProps) {
     const targetDay = startOfDay(day)
     const today = startOfDay(new Date())
     
+    // Geçmiş günleri kilitler
     if (targetDay < today) return true
 
-    return CONFIG.BLOCKED_RANGES.some((range) => {
+    // Henüz giriş tarihi seçilmediyse standart doluluk kontrolü yap
+    if (!dateRange?.from) {
+      return CONFIG.BLOCKED_RANGES.some((range) => {
+        const from = parseLocalDate(range.from)
+        const to = parseLocalDate(range.to)
+        return targetDay >= from && targetDay < to
+      })
+    }
+
+    // Giriş tarihi seçilmişse (Çıkış tarihi seçimi aşamasındayız):
+    const checkIn = startOfDay(dateRange.from)
+
+    // Giriş tarihinden önceki günleri engelle
+    if (targetDay < checkIn) return true
+
+    // Bloklu aralıkları değerlendir
+    for (const range of CONFIG.BLOCKED_RANGES) {
       const from = parseLocalDate(range.from)
       const to = parseLocalDate(range.to)
-      return targetDay >= from && targetDay < to
-    })
+
+      // Eğer bu bloklu rezervasyon bizim seçtiğimiz check-in tarihinden sonra başlıyorsa:
+      if (from >= checkIn) {
+        // Gelecekteki rezervasyonun Başlangıç Günü (from) ÇIKIŞ yapılabilir.
+        // Ancak bu günden SONRAKİ (targetDay > from) tüm günleri engelle.
+        if (targetDay > from) return true
+      } else {
+        // Eğer seçtiğimiz check-in tarihi zaten var olan bir bloklu aralığın ortasına/içine düşüyorsa
+        if (targetDay > from && targetDay < to) return true
+      }
+    }
+
+    return false
   }
 
-  // 2. Takvim Seçim Kontrolü (Aralıkta dolu gün varsa engeller)
+  // 2. Takvim Seçim Kontrolü (Aralıkta kalınacak dolu gece var mı?)
   const handleDateSelect = (range: DateRange | undefined) => {
     if (!range?.from) {
       setDateRange(undefined)
@@ -131,8 +158,15 @@ export function BookingCard({ id, blockedDates = [] }: BookingCardProps) {
       let hasBlockedDayInside = false
       let current = new Date(range.from)
 
+      // Konaklanacak her bir geceyi (checkIn -> checkOut-1) kontrol et
       while (current < range.to) {
-        if (isDateBlocked(current)) {
+        const isNightBlocked = CONFIG.BLOCKED_RANGES.some((r) => {
+          const from = parseLocalDate(r.from)
+          const to = parseLocalDate(r.to)
+          return current >= from && current < to
+        })
+
+        if (isNightBlocked) {
           hasBlockedDayInside = true
           break
         }
@@ -140,7 +174,11 @@ export function BookingCard({ id, blockedDates = [] }: BookingCardProps) {
       }
 
       if (hasBlockedDayInside) {
-        showAlert("error", "Tarih Çakışması", "Seçtiğiniz tarihler arasında dolu günler bulunmaktadır. Lütfen farklı bir aralık seçiniz.")
+        showAlert(
+          "error",
+          "Tarih Çakışması",
+          "Seçtiğiniz tarihler arasında dolu geceler bulunmaktadır. Lütfen farklı bir aralık seçiniz."
+        )
         setDateRange({ from: range.from, to: undefined })
         return
       }
@@ -172,7 +210,6 @@ export function BookingCard({ id, blockedDates = [] }: BookingCardProps) {
     }
 
     try {
-
       // Rezervasyonu DB'ye Kaydet
       const res = await fetch("/api/create-rez", {
         method: "POST",
@@ -185,25 +222,25 @@ export function BookingCard({ id, blockedDates = [] }: BookingCardProps) {
       if (!res.ok) {
         showAlert("error", "Rezervasyon Hatası", data.error || "Rezervasyon oluşturulamadı.")
         return
-      };
+      }
 
       // E-posta gönderme
       await fetch("/api/send-email", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        email: payload.email,
-        customerName: fullName,
-        apartmentTitle: payload.propertyId,
-        checkIn: payload.checkIn,
-        checkOut: payload.checkOut,
-        phone: payload.phone,
-        adults: payload.adults,
-        children: payload.children,
-        totalPrice,
-        deposit: data.deposit
-      }),
-    })
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: payload.email,
+          customerName: fullName,
+          apartmentTitle: payload.propertyId,
+          checkIn: payload.checkIn,
+          checkOut: payload.checkOut,
+          phone: payload.phone,
+          adults: payload.adults,
+          children: payload.children,
+          totalPrice,
+          deposit: data.deposit
+        }),
+      })
 
       showAlert(
         "success",
@@ -215,11 +252,11 @@ export function BookingCard({ id, blockedDates = [] }: BookingCardProps) {
         Toplam Tutar: ₺${totalPrice.toLocaleString("tr-TR")}
 
         Kapora Tutarı (EFT/Havale Yapınız):
-        ₺${data.deposit.toLocaleString("tr-TR") || "Hesaplanamadı. Lütfen 0 (555) 635 41 55 ile irtibata geçiniz."}
+        ₺${data.deposit ? data.deposit.toLocaleString("tr-TR") : "Hesaplanamadı. Lütfen 0 (555) 635 41 55 ile irtibata geçiniz."}
         TR88 0001 5001 5800 7328 3126 62
         Selma Altun - Vakıfbank
 
-        Kapora sonrası bakiye: ₺${data.deposit? (totalPrice - data.deposit).toLocaleString("tr-TR") : "-"} (Girişte tahsil edilir)
+        Kapora sonrası bakiye: ₺${data.deposit ? (totalPrice - data.deposit).toLocaleString("tr-TR") : "-"} (Girişte tahsil edilir)
 
         Rezervasyon detaylarını ${email} e-posta adresinize gönderdik.
         İyi tatiller!
@@ -271,44 +308,44 @@ export function BookingCard({ id, blockedDates = [] }: BookingCardProps) {
             </div>
 
             {/* DATE PICKER */}
-<div className="space-y-1.5">
-  <label className="text-xs font-semibold text-gray-700">Tarih Aralığı Seçin *</label>
-  <Popover>
-    <PopoverTrigger asChild>
-      <Button
-        variant="outline"
-        className="h-11 w-full justify-start text-left border-orange-200 shadow-sm hover:border-orange-500 focus:ring-orange-500"
-      >
-        <CalendarIcon className="mr-2.5 h-5 w-5 text-orange-500" />
-        {dateRange?.from ? (
-          dateRange.to ? (
-            <span className="font-medium text-gray-900">
-              {format(dateRange.from, "dd MMM yyyy", { locale: tr })} — {format(dateRange.to, "dd MMM yyyy", { locale: tr })}
-            </span>
-          ) : (
-            <span className="font-medium text-gray-900">
-              {format(dateRange.from, "dd MMM yyyy", { locale: tr })} — Çıkış Tarihi Seçin
-            </span>
-          )
-        ) : (
-          <span className="text-gray-400">Giriş - Çıkış Tarihi Seçin</span>
-        )}
-      </Button>
-    </PopoverTrigger>
-    <PopoverContent className="w-auto p-0" align="start">
-      <Calendar
-        mode="range"
-        selected={dateRange}
-        onSelect={handleDateSelect}
-        numberOfMonths={1}
-        disabled={isDateBlocked}
-        locale={tr}             
-        weekStartsOn={1}         
-        className="pointer-events-auto p-3"
-      />
-    </PopoverContent>
-  </Popover>
-</div>
+            <div className="space-y-1.5">
+              <label className="text-xs font-semibold text-gray-700">Tarih Aralığı Seçin *</label>
+              <Popover>
+                <PopoverTrigger asChild>
+                  <Button
+                    variant="outline"
+                    className="h-11 w-full justify-start text-left border-orange-200 shadow-sm hover:border-orange-500 focus:ring-orange-500"
+                  >
+                    <CalendarIcon className="mr-2.5 h-5 w-5 text-orange-500" />
+                    {dateRange?.from ? (
+                      dateRange.to ? (
+                        <span className="font-medium text-gray-900">
+                          {format(dateRange.from, "dd MMM yyyy", { locale: tr })} — {format(dateRange.to, "dd MMM yyyy", { locale: tr })}
+                        </span>
+                      ) : (
+                        <span className="font-medium text-gray-900">
+                          {format(dateRange.from, "dd MMM yyyy", { locale: tr })} — Çıkış Tarihi Seçin
+                        </span>
+                      )
+                    ) : (
+                      <span className="text-gray-400">Giriş - Çıkış Tarihi Seçin</span>
+                    )}
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-auto p-0" align="start">
+                  <Calendar
+                    mode="range"
+                    selected={dateRange}
+                    onSelect={handleDateSelect}
+                    numberOfMonths={1}
+                    disabled={isDateBlocked}
+                    locale={tr}             
+                    weekStartsOn={1}         
+                    className="pointer-events-auto p-3"
+                  />
+                </PopoverContent>
+              </Popover>
+            </div>
 
             {/* GUEST COUNTS */}
             <div className="grid grid-cols-2 gap-3">

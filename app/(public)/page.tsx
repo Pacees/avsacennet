@@ -10,6 +10,8 @@ import { Badge } from "@/components/ui/badge"
 import { Star, MapPin, Users, Bed, Calendar as CalendarIcon, Search, X } from "lucide-react"
 import { HomeGallery } from "@/components/HomeGallery"
 
+import { AlertModal, AlertType } from "@/components/ui/AlertModal"
+
 export default function Home() {
   const supabase = React.useMemo(() => {
     return createBrowserClient(
@@ -37,12 +39,35 @@ export default function Home() {
       .replace(/ö/g, "o")
       .replace(/ç/g, "c")
       .replace(/[^a-z0-9]/g, "") // Özel karakter ve boşlukları siler (Örn: "Daire 1" -> "daire1")
-  }
+  };
+
+  // Alert Popup State
+    const [alertState, setAlertState] = React.useState<{
+      isOpen: boolean
+      type: AlertType
+      title: string
+      message: string
+    }>({
+      isOpen: false,
+      type: "info",
+      title: "",
+      message: "",
+    })
+  
+    const showAlert = (type: AlertType, title: string, message: string) => {
+      setAlertState({ isOpen: true, type, title, message })
+    }
 
   // Tarih Filtreleme Logic
   const handleFilter = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!checkIn || !checkOut) return
+
+    if(checkIn === checkOut) return showAlert(
+          "error",
+          "Lütfen en az bir gece seçiniz",
+          "Giriş ve çıkış tarihleri aynı gün olamaz."
+        );
 
     setLoading(true)
 
@@ -52,6 +77,7 @@ export default function Home() {
         .from("rezervasyonlar")
         .select("daire_adi")
         .or("iptal.is.null,iptal.eq.false")
+        .or("onayli_mi.is.true")
         .lt("giris", checkOut)
         .gt("cikis", checkIn)
 
@@ -257,6 +283,15 @@ export default function Home() {
         )}
 
       </div>
+
+      {/* ALERT POPUP MODAL */}
+            <AlertModal
+              isOpen={alertState.isOpen}
+              onClose={() => setAlertState((prev) => ({ ...prev, isOpen: false }))}
+              type={alertState.type}
+              title={alertState.title}
+              message={alertState.message}
+            />
     </main>
   )
 }
