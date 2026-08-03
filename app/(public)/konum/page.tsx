@@ -44,7 +44,7 @@ export default function LocationPage() {
 
             <div className="space-y-4 text-sm text-gray-600">
               <div className="flex items-start gap-3">
-                <MapPin className="w-5 h-5 text-orange-600 shrink-0 mt-0.5" />
+                <MapPin className="w-5 h-5 text-primary shrink-0 mt-0.5" />
                 <div>
                   <p className="font-semibold text-gray-800">Açık Adres</p>
                   <p>Deniz Mh. 5012 Sk. No: 1 Avşa Adası / Marmara / Balıkesir</p>
@@ -52,7 +52,7 @@ export default function LocationPage() {
               </div>
 
               <div className="flex items-start gap-3">
-                <Clock className="w-5 h-5 text-orange-600 shrink-0 mt-0.5" />
+                <Clock className="w-5 h-5 text-primary shrink-0 mt-0.5" />
                 <div>
                   <p className="font-semibold text-gray-800">Giriş / Çıkış Saatleri</p>
                   <p>Giriş (Check-in): 14:00</p>
@@ -61,7 +61,7 @@ export default function LocationPage() {
               </div>
 
               <div className="flex items-start gap-3">
-                <Phone className="w-5 h-5 text-orange-600 shrink-0 mt-0.5" />
+                <Phone className="w-5 h-5 text-primary shrink-0 mt-0.5" />
                 <div>
                   <p className="font-semibold text-gray-800">İletişim</p>
                   <p>+90 (555) 635 41 55</p>
