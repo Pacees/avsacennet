@@ -2,101 +2,90 @@ import { NextResponse } from 'next/server';
 import { supabase } from '@/lib/supabase';
 import { PROPERTIES } from '@/data/daireler';
 
-
 export const dynamic = 'force-dynamic';
+
+function nightsBetween(startISO: string, endISO: string) {
+  const s = new Date(startISO);
+  const e = new Date(endISO);
+  const utcStart = Date.UTC(s.getFullYear(), s.getMonth(), s.getDate());
+  const utcEnd = Date.UTC(e.getFullYear(), e.getMonth(), e.getDate());
+  return Math.floor((utcEnd - utcStart) / (1000 * 60 * 60 * 24));
+}
+
 export async function POST(request: Request) {
+  try {
+    const body = await request.json();
 
-    try {
-        const body = await request.json();
+    const {
+      propertyId,
+      checkIn,
+      checkOut,
+      adults,
+      children,
+      name,
+      phone,
+      email,
+    } = body;
 
-        const {
-            propertyId,
-            checkIn,
-            checkOut,
-            adults,
-            children,
-            name,
-            phone,
-            email,
-        } = body;
-
-        const property = PROPERTIES.filter(item => item.id == propertyId);
-        if(!property) {
-            return NextResponse.json(
-        { error: 'Geçersiz daire seçimi.' },
-        { status: 400 }
-      )};
-
-      if (!checkIn || !checkOut || !name || !phone || !email) {
-      return NextResponse.json(
-        { error: 'Lütfen tüm zorunlu alanları eksiksiz doldurun.' },
-        { status: 400 }
-      );
-
-      }
-        if(!adults) {
-        return NextResponse.json(
-        { error: 'Bir hata oluştu. Rezervasyon için lütfen 0 (555) 635 41 55 telefon numarası ile bizimle iletişime geçin.' },
-        { status: 400 })};
-
-        //Gece Sayısını Backend'de Güvenli Olarak Hesapla
-    const startDate = new Date(checkIn)
-    const endDate = new Date(checkOut)
-
-    // Tarih geçerliliği ve mantık kontrolü (Çıkış tarihi girişten önce veya eşit olamaz)
-    if (isNaN(startDate.getTime()) || isNaN(endDate.getTime()) || endDate <= startDate) {
-      return NextResponse.json(
-        { error: 'Geçersiz giriş veya çıkış tarihi seçildi.' },
-        { status: 400 }
-      )
+    // Basic validation
+    if (!propertyId) {
+      return NextResponse.json({ error: 'propertyId parametresi gereklidir.' }, { status: 400 });
     }
 
-    // İki tarih arasındaki gece sayısını milisaniye üzerinden hesapla
-    const diffInMs = endDate.getTime() - startDate.getTime()
-    const nights = Math.round(diffInMs / (1000 * 60 * 60 * 24))
+    // Normalize property id to string for comparison with PROPERTIES
+    const property = PROPERTIES.find((item) => String(item.id) === String(propertyId));
+    if (!property) {
+      return NextResponse.json({ error: 'Geçersiz daire seçimi.' }, { status: 400 });
+    }
 
+    if (!checkIn || !checkOut || !name || !phone || !email) {
+      return NextResponse.json({ error: 'Lütfen tüm zorunlu alanları eksiksiz doldurun.' }, { status: 400 });
+    }
 
-        // Toplam Fiyat Hesaplaması
-        console.log(property);
-        const calculatedTotalPrice = property[0].price * nights;
-
-        //Kapora Hesaplama
-        const calculatedDeposit = calculatedTotalPrice / 5;
-        //const roundedDeposit = Math.round(calculatedDeposit / 50) * 50;
-        const roundedDeposit = 5000
-
-
-            // DB'den tarih kontrolü
-        const { data: existingBookings, error: checkError } = await supabase
-        .from('rezervasyonlar')
-        .select('daire_adi')
-        .eq('daire_adi', propertyId)
-        .eq('onayli_mi', true)
-        .eq("iptal",false)
-        .lt('giris', checkOut)
-        .gt('cikis', checkIn);
-
-      if (checkError) {
-      console.error('Supabase Sorgu Hatası:', checkError)
+    if (!adults) {
       return NextResponse.json(
-        { error: 'Tarih kontrolü yapılırken bir hata oluştu.' },
-        { status: 500 }
-      )
-    };
+        { error: 'Bir hata oluştu. Rezervasyon için lütfen 0 (555) 635 41 55 telefon numarası ile bizimle iletişime geçin.' },
+        { status: 400 }
+      );
+    }
+
+    // Gece sayısını güvenli hesapla
+    const nights = nightsBetween(checkIn, checkOut);
+    if (isNaN(nights) || nights <= 0) {
+      return NextResponse.json({ error: 'Geçersiz giriş veya çıkış tarihi seçildi.' }, { status: 400 });
+    }
+
+    // Toplam Fiyat Hesaplaması
+    const calculatedTotalPrice = (property as any).price * nights;
+
+    //Kapora Hesaplama - sabit olarak bırakıldı
+    const roundedDeposit = 5000;
+
+    // DB'den tarih kontrolü (normalize propertyId to string)
+    const { data: existingBookings, error: checkError } = await supabase
+      .from('rezervasyonlar')
+      .select('daire_adi')
+      .eq('daire_adi', String(propertyId))
+      .eq('onayli_mi', true)
+      .eq('iptal', false)
+      .lt('giris', checkOut)
+      .gt('cikis', checkIn);
+
+    if (checkError) {
+      console.error('Supabase Sorgu Hatası:', checkError);
+      return NextResponse.json({ error: 'Tarih kontrolü yapılırken bir hata oluştu.' }, { status: 500 });
+    }
 
     if (existingBookings && existingBookings.length > 0) {
-      return NextResponse.json(
-        { error: 'Seçilen tarihler arasında daire doludur.' },
-        { status: 409 }
-      )
-    };
+      return NextResponse.json({ error: 'Seçilen tarihler arasında daire doludur.' }, { status: 409 });
+    }
 
     //DB'ye kayıt
     const { data: newBooking, error: insertError } = await supabase
       .from('rezervasyonlar')
       .insert([
         {
-          daire_adi: propertyId,
+          daire_adi: String(propertyId),
           giris: checkIn,
           cikis: checkOut,
           gece: nights,
@@ -106,39 +95,26 @@ export async function POST(request: Request) {
           telefon: phone,
           mail: email,
           fiyat: calculatedTotalPrice,
-          kapora: roundedDeposit
+          kapora: roundedDeposit,
         },
       ])
       .select()
       .single();
 
-      if(insertError) {
-        console.log(insertError);
-         return NextResponse.json(
-        { error: 'Hata.' },
-        { status: 409 }
-      )
-      }
-
-        console.log(property);
-        console.log(propertyId);
-
-        return NextResponse.json(
-      { message: 'Rezervasyon talebiniz alındı!',
-        deposit: roundedDeposit
-      },
-      { status: 201 }
-    )
-    } catch(error){
-        console.log(error);
-
-        return NextResponse.json(
-        { error: 'Hata.' },
-        { status: 409 }
-      )
+    if (insertError) {
+      console.error('Supabase Insert Hatası:', insertError);
+      return NextResponse.json({ error: 'Rezervasyon kaydı sırasında bir hata oluştu.' }, { status: 500 });
     }
 
-
-
-
+    return NextResponse.json(
+      {
+        message: 'Rezervasyon talebiniz alındı!',
+        deposit: roundedDeposit,
+      },
+      { status: 201 }
+    );
+  } catch (error) {
+    console.error('create-rez hata:', error);
+    return NextResponse.json({ error: 'Sunucu hatası.' }, { status: 500 });
+  }
 }
