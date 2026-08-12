@@ -1,11 +1,19 @@
 import { NextResponse } from "next/server"
 import { Resend } from "resend"
+import escapeHtml from 'escape-html'
 
 const resend = new Resend(process.env.RESEND_API_KEY)
 
 export async function POST(request: Request) {
   try {
-    const { email, customerName, apartmentTitle, checkIn, checkOut, totalPrice, phone, adults, children, deposit } = await request.json()
+
+    const body = await request.json();
+
+    const escapeFromHtml = Object.fromEntries((Object.entries(body) as [string, string][]).map(([key, value]) => [key, escapeHtml(value)]));
+    console.log(body);
+    console.log(escapeFromHtml);
+
+    const { email, customerName, apartmentTitle, checkIn, checkOut, totalPrice, phone, adults, children, deposit } = escapeFromHtml;
 
     const upperCaseName = customerName.split(" ").map(kelime => kelime.charAt(0).toUpperCase() + kelime.slice(1)).join(" ");
 

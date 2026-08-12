@@ -16,6 +16,7 @@
     "clsx": "^2.1.1",
     "date-fns": "^4.4.0",
     "embla-carousel-react": "^8.6.0",
+    "escape-html": "^1.0.3",
     "ical-generator": "^10.2.0",
     "ics": "^3.12.0",
     "lucide-react": "^1.27.0",
@@ -33,6 +34,7 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
+    "@types/escape-html": "^1.0.4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
