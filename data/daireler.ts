@@ -159,7 +159,7 @@ description: "Avşa Adası merkezde günlük kiralık daire. Adanın gürültüs
     id: "ust-sol",
     title: "Balkonlu Geniş & Ferah 1+1 Daire ",
     location: "Avşa Adası, Merkez",
-    price: 2500,
+    price: 3500,
     coverImage: "/gallery/ust-sol/9.jpg",
     images: [
        {
