@@ -246,17 +246,6 @@ export function BookingCard({ id, blockedDates = [] }: BookingCardProps) {
         "success",
         "Talebiniz Alındı!",
         `Sayın ${fullName.split(" ").map(kelime => kelime.charAt(0).toUpperCase() + kelime.slice(1)).join(" ")},
-        Rezervasyonunuzu hemen onaylayıp yerinizi ayırtmak için kapora tutarını EFT/Havale yapıp,
-        dekont ve rezervasyonu yapan kişinin isim bilgisini WhatsApp üzerinden iletişim numaramızla paylaşınız.
-
-        Toplam Tutar: ₺${totalPrice.toLocaleString("tr-TR")}
-
-        Kapora Tutarı (EFT/Havale Yapınız):
-        ₺${data.deposit ? data.deposit.toLocaleString("tr-TR") : "Hesaplanamadı. Lütfen 0 (555) 635 41 55 ile irtibata geçiniz."}
-        TR88 0001 5001 5800 7328 3126 62
-        Selma Altun - Vakıfbank
-
-        Kapora sonrası bakiye: ₺${data.deposit ? (totalPrice - data.deposit).toLocaleString("tr-TR") : "-"} (Girişte tahsil edilir)
 
         Rezervasyon detaylarını ${email} e-posta adresinize gönderdik.
         İyi tatiller!
